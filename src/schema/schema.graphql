@@ -1,0 +1,101 @@
+type Query {
+  characters(
+  offset:Int,
+  limit:Int,
+  name:String,
+  comics:String,
+  series:String,
+  events:String,
+  ): CharacterDataWrapper!
+
+  search(
+  offset:Int,
+  limit:Int,
+  nameStartsWith: String,
+  ): CharacterDataWrapper!
+
+  character(id:String): CharacterDataWrapper!
+}
+
+type CharacterDataWrapper {
+  code: Int
+  status: String
+  copyright: String
+  attributionText: String
+  attributionHTML: String
+  data: CharacterDataContainer
+  etag: String
+}
+
+type CharacterDataContainer {
+  offset: Int
+  limit: Int
+  total: Int
+  count: Int
+  results: [Character]
+}
+
+type Character {
+  id: Int
+  name: String
+  description: String
+  modified: Int
+  resourceURI: String
+  urls: [Url]
+  thumbnail: Image
+  comics: ComicList
+  stories: StoryList
+  events: EventList
+  series: SeriesList
+}
+
+type Image {
+  path: String
+  extension: String
+}
+type ComicList {
+  available: Int
+  returned: Int
+  collectionURI: String
+  items: [ComicSummary]
+}
+type ComicSummary {
+  resourceURI: String
+  name: String
+}
+type StoryList {
+  available: Int
+  returned: Int
+  collectionURI: String
+  items: [StorySummary]
+}
+type StorySummary {
+  resourceURI: String
+  name: String
+  type: String
+}
+type EventList {
+  available: Int
+  returned: Int
+  collectionURI: String
+  items:[EventSummary]
+}
+type EventSummary {
+  resourceURI: String
+  name: String
+}
+type SeriesList {
+  available: Int
+  returned: Int
+  collectionURI: String
+  items: [SeriesSummary]
+}
+type SeriesSummary {
+  resourceURI: String
+  name: String
+}
+
+type Url {
+  type: String
+  url: String
+}
